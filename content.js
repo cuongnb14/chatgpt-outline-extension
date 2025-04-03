@@ -1,4 +1,5 @@
 function createSidebar() {
+    console.log('Creating sidebar...');
     const sidebar = document.createElement('div');
     sidebar.id = 'chatgpt-outline-sidebar';
     sidebar.style.position = 'fixed';
@@ -23,16 +24,25 @@ function createSidebar() {
     outlineList.innerHTML = '';
   
     messages.forEach((msg, idx) => {
-      const text = msg.textContent.slice(0, 80) + '...';
+      const text = msg.textContent.trim().slice(0, 80) + '...';
       const li = document.createElement('li');
       li.innerText = `Q${idx + 1}: ${text}`;
       li.style.cursor = 'pointer';
-      li.onclick = () => {
-        msg.scrollIntoView({ behavior: 'smooth' });
-      };
+      li.style.padding = '4px 0';
+      li.onclick = () => msg.scrollIntoView({ behavior: 'smooth' });
       outlineList.appendChild(li);
     });
   }
+  
+  function debounce(func, wait) {
+    let timeout;
+    return function (...args) {
+      clearTimeout(timeout);
+      timeout = setTimeout(() => func.apply(this, args), wait);
+    };
+  }
+  
+  const debouncedGenerateOutline = debounce(generateOutline, 500);
   
   function waitForChat() {
     const check = setInterval(() => {
@@ -42,11 +52,13 @@ function createSidebar() {
         createSidebar();
         generateOutline();
   
-        // Tự động cập nhật outline khi có thay đổi
-        const observer = new MutationObserver(() => generateOutline());
-        observer.observe(document.body, { childList: true, subtree: true });
+        const chatContainer = document.querySelector('main');
+        if (chatContainer) {
+          const observer = new MutationObserver(() => debouncedGenerateOutline());
+          observer.observe(chatContainer, { childList: true, subtree: true });
+        }
       }
-    }, 3000);
+    }, 1000);
   }
   
   waitForChat();
