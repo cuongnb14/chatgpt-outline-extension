@@ -2,11 +2,14 @@
     "manifest_version": 3,
     "name": "ChatGPT Outline",
     "version": "1.0",
-    "description": "Tạo dàn bài cho cuộc hội thoại ChatGPT",
+    "description": "Generate an outline for the ChatGPT conversation",
     "permissions": [
         "scripting",
         "activeTab"
     ],
+    "icons": {
+        "128": "icon128.png"
+    },
     "background": {
         "service_worker": "background.js"
     },

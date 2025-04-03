@@ -69,4 +69,20 @@ function createSidebarAndOutline() {
       createSidebarAndOutline();
     }
   });
+
+  function toggleSidebar() {
+    const existing = document.getElementById('chatgpt-outline-sidebar');
+    if (existing) {
+      existing.remove();
+    } else {
+      createSidebarAndOutline();
+    }
+  }
+  
+  window.addEventListener("message", (event) => {
+    if (event.source === window && event.data.type === 'TOGGLE_CHATGPT_OUTLINE') {
+      toggleSidebar();
+    }
+  });
+  
   
