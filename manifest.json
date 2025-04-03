@@ -3,15 +3,24 @@
     "name": "ChatGPT Outline",
     "version": "1.0",
     "description": "Tạo dàn bài cho cuộc hội thoại ChatGPT",
-    "permissions": ["scripting", "activeTab"],
+    "permissions": [
+        "scripting",
+        "activeTab"
+    ],
+    "background": {
+        "service_worker": "background.js"
+    },
     "content_scripts": [
-      {
-        "matches": ["https://chatgpt.com/*"],
-        "js": ["content.js"]
-      }
+        {
+            "matches": [
+                "https://chatgpt.com/*"
+            ],
+            "js": [
+                "content.js"
+            ]
+        }
     ],
     "action": {
-      "default_title": "ChatGPT Outline"
+        "default_title": "ChatGPT Outline"
     }
-  }
-  
+}
