@@ -22,5 +22,5 @@ A lightweight Chrome Extension that adds a dynamic outline to your ChatGPT conve
 4. Click **Load unpacked** and select the folder containing this extension.
 5. Go to [https://chatgpt.com/](https://chatgpt.com/), start chatting, and click the extension icon to toggle the outline.
 
-
+## Screenshots
 ![ChatGPT Outline Preview](https://github.com/cuongnb14/chatgpt-outline-extension/blob/main/screenshot.jpg?raw=true)
