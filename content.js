@@ -32,16 +32,22 @@ function createSidebarAndOutline() {
     // Auto update
     const chatContainer = document.querySelector('main');
     if (chatContainer) {
-      let timeout;
+      let timeout = null;
       const observer = new MutationObserver(() => {
-        clearTimeout(timeout);
-        timeout = setTimeout(() => generateOutline(), 1000);
-      });
+        if (timeout) {
+          clearTimeout(timeout);
+          timeout = setTimeout(() => {generateOutline(); timeout = null}, 1000);
+        } else {
+          if (generateOutline()) {
+            timeout = setTimeout(() => timeout = null, 1000);
+          }
+      }});
       observer.observe(chatContainer, { childList: true, subtree: true });
     }
   }
   
   function generateOutline() {
+    console.log('Generating outline...');
     const messages = document.querySelectorAll('[data-message-author-role="user"]');
     const outlineList = document.getElementById('outline-list');
     if (!outlineList) return;
@@ -63,6 +69,7 @@ function createSidebarAndOutline() {
   
       outlineList.appendChild(li);
     });
+    return outlineList.innerHTML !== ''
   }
   
   // Listen to message from background
