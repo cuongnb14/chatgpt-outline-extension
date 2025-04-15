@@ -32,8 +32,10 @@ function createSidebarAndOutline() {
     // Auto update
     const chatContainer = document.querySelector('main');
     if (chatContainer) {
+      let timeout;
       const observer = new MutationObserver(() => {
-        generateOutline();
+        clearTimeout(timeout);
+        timeout = setTimeout(() => generateOutline(), 1000);
       });
       observer.observe(chatContainer, { childList: true, subtree: true });
     }
